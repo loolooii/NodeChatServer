@@ -1,0 +1,32 @@
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+let connectedUsers = {};
+
+io.on('connection', (socket) => {
+
+  let user = {};
+  user.color = makeRandomColor();
+  user.id = socket.id;
+  connectedUsers[socket.id] = user;
+
+  io.emit('user', connectedUsers);
+
+  socket.on('disconnect', function() {
+    delete connectedUsers[socket.id];
+    io.emit('user', connectedUsers);
+  });
+
+  socket.on('add-message', (message) => {
+    io.emit('message', {user: connectedUsers[socket.id], text: message});
+  });
+});
+
+http.listen(3000, () => {
+  console.log('started on port 3000');
+});
+
+function makeRandomColor() {
+  return '#'+Math.random().toString(16).slice(-3);
+}
