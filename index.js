@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
 
   io.emit('user', connectedUsers);
 
-  socket.on('disconnect', function() {
+  socket.on('close', function() {
     delete connectedUsers[socket.id];
     io.emit('user', connectedUsers);
   });
