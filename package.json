@@ -1,5 +1,5 @@
 {
-  "name": "examplechatserver",
+  "name": "NodeChatServer",
   "version": "1.0.0",
   "description": "Example chat server using Node.js and Socket.io for demo purposes.",
   "main": "index.js",
