@@ -2,9 +2,6 @@ const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {pingTimeout: 2000, pingInterval: 1000});
 
-// io.set('heartbeat timeout', 50000);
-// io.set('heartbeat interval', 2000);
-
 let connectedUsers = {};
 
 io.on('connection', (socket) => {
